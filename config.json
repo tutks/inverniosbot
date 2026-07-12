@@ -11,7 +11,7 @@
     },
 
     "chat": {
-    "enabled": true,
+    "enabled": false,
     "minDelay": 300000,
     "maxDelay": 900000,
     "messages": [
@@ -48,8 +48,8 @@
 },
 
 "debug": {
-    "enabled": true,
-    "saveLogs": true,
+    "enabled": false,
+    "saveLogs": false,
     "packets": false
 }
 }

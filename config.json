@@ -1,0 +1,56 @@
+{
+    "server": {
+        "host": "invernio.seedloaf.gg",
+        "port": 25565,
+        "version": "1.21.11"
+    },
+
+    "account": {
+        "username": "invernio_bot",
+        "password": "TuContraseña"
+    },
+
+    "chat": {
+    "enabled": true,
+    "minDelay": 300000,
+    "maxDelay": 900000,
+    "messages": [
+        "q rico",
+        "me alimento a base de queque",
+        "EE gordo olor a pis",
+        "Quiero queque",
+        "Hace frio chaat",
+        "Hola a todos!",
+        "{player} tiene mucha suerte 🍀",
+        "¿Qué tal va todo, {player}?",
+        "{player} parece que está minando 😄",
+        "Llevo {time} conectado.",
+        "Hay {players} jugadores online.",
+        "estamos en el dia {day}.",
+        "Estoy en {biome}",
+        "tengo {healt} corazones"
+    ]
+},
+
+    "movement": {
+    "enabled": true,
+    "minDelay": 20000,
+    "maxDelay": 60000,
+    "minWalkTime": 1000,
+    "maxWalkTime": 3000
+},
+
+"reconnect": {
+    "enabled": true,
+    "initialDelay": 5000,
+    "maxDelay": 60000,
+    "factor": 2
+},
+
+"debug": {
+    "enabled": true,
+    "saveLogs": true,
+    "packets": false
+}
+}
+

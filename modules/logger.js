@@ -2,7 +2,13 @@ const fs = require("fs");
 const path = require("path");
 const config = require("../config.json");
 
-const logFile = path.join(__dirname, "..", "logs", "latest.log");
+const logsDir = path.join(__dirname, "..", "logs");
+const logFile = path.join(logsDir, "latest.log");
+
+// Crear carpeta logs si no existe
+if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
+}
 
 function write(type, message) {
 
@@ -13,7 +19,19 @@ function write(type, message) {
     console.log(line);
 
     if (config.debug.saveLogs) {
-        fs.appendFileSync(logFile, line + "\n");
+
+        fs.appendFile(
+            logFile,
+            line + "\n",
+            (err) => {
+
+                if (err) {
+                    console.error("Error escribiendo el log:", err);
+                }
+
+            }
+        );
+
     }
 
 }
@@ -24,9 +42,11 @@ function info(message) {
 
 function debug(message) {
 
-    if (config.debug.enabled) {
-        write("DEBUG", message);
+    if (!config.debug.enabled) {
+        return;
     }
+
+    write("DEBUG", message);
 
 }
 

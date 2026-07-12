@@ -1,4 +1,5 @@
 const mineflayer = require("mineflayer");
+
 const movement = require("./movement");
 const config = require("../config.json");
 const logger = require("./logger");
@@ -17,7 +18,9 @@ let state = "DISCONNECTED";
 // RECONNECT_WAIT
 
 function start() {
+
     createBot();
+
 }
 
 function createBot() {
@@ -26,15 +29,32 @@ function createBot() {
         return;
     }
 
+    if (bot) {
+
+        try {
+            bot.removeAllListeners();
+
+            if (bot._client) {
+                bot._client.removeAllListeners();
+            }
+
+            bot.end();
+        } catch {}
+
+        bot = null;
+    }
+
     state = "CONNECTING";
 
     logger.info("Conectando al servidor...");
 
     bot = mineflayer.createBot({
+
         host: config.server.host,
         port: config.server.port,
         username: config.account.username,
         version: config.server.version
+
     });
 
     auth.initialize(bot);
@@ -42,7 +62,7 @@ function createBot() {
     chat.initialize(bot);
 
     bot.once("spawn", () => {
-    
+
         logger.info("Bot conectado.");
 
         state = "CONNECTED";
@@ -50,8 +70,10 @@ function createBot() {
         reconnectDelay = config.reconnect.initialDelay;
 
         if (reconnectTimer) {
+
             clearTimeout(reconnectTimer);
             reconnectTimer = null;
+
         }
 
     });
@@ -61,6 +83,8 @@ function createBot() {
         logger.warning("Bot expulsado.");
         logger.warning(String(reason));
 
+        cleanup();
+
         scheduleReconnect();
 
     });
@@ -68,6 +92,8 @@ function createBot() {
     bot.on("end", () => {
 
         logger.warning("Conexión finalizada.");
+
+        cleanup();
 
         scheduleReconnect();
 
@@ -81,17 +107,31 @@ function createBot() {
 
 }
 
+function cleanup() {
+
+    state = "DISCONNECTED";
+
+    if (!bot) return;
+
+    try {
+
+        bot.removeAllListeners();
+
+        if (bot._client) {
+            bot._client.removeAllListeners();
+        }
+
+    } catch {}
+
+}
+
 function scheduleReconnect() {
-
-    if (state === "RECONNECT_WAIT") {
-        return;
-    }
-
-    state = "RECONNECT_WAIT";
 
     if (reconnectTimer) {
         return;
     }
+
+    state = "RECONNECT_WAIT";
 
     logger.info(`Reconectando en ${reconnectDelay / 1000} segundos...`);
 
@@ -99,15 +139,15 @@ function scheduleReconnect() {
 
         reconnectTimer = null;
 
-        state = "DISCONNECTED";
-
         createBot();
 
     }, reconnectDelay);
 
     reconnectDelay = Math.min(
+
         reconnectDelay * config.reconnect.factor,
         config.reconnect.maxDelay
+
     );
 
 }

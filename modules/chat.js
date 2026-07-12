@@ -10,22 +10,36 @@ function initialize(bot) {
     if (!config.chat.enabled) return;
 
     bot.once("spawn", () => {
+
+        stop();
+
         schedule(bot);
 
     });
 
     bot.on("end", () => {
 
-        if (chatTimer) {
-            clearTimeout(chatTimer);
-            chatTimer = null;
-        }
+        stop();
 
     });
 
 }
 
+function stop() {
+
+    if (chatTimer) {
+
+        clearTimeout(chatTimer);
+
+        chatTimer = null;
+
+    }
+
+}
+
 function schedule(bot) {
+
+    stop();
 
     const delay = random(
         config.chat.minDelay,
@@ -42,8 +56,7 @@ function schedule(bot) {
 
 function sendMessage(bot) {
 
-    if (!bot || !bot.entity) {
-        schedule(bot);
+    if (!bot || !bot.entity || bot._client.ended) {
         return;
     }
 
@@ -52,20 +65,33 @@ function sendMessage(bot) {
     );
 
     if (availableMessages.length === 0) {
+
         recentMessages.length = 0;
+
         availableMessages = [...config.chat.messages];
+
     }
 
     const message = availableMessages[
         Math.floor(Math.random() * availableMessages.length)
     ];
 
-    bot.chat(message);
+    try {
+
+        bot.chat(message);
+
+    } catch {
+
+        return;
+
+    }
 
     recentMessages.push(message);
 
     if (recentMessages.length > MAX_RECENT_MESSAGES) {
+
         recentMessages.shift();
+
     }
 
     schedule(bot);

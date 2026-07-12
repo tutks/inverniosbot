@@ -1,6 +1,7 @@
 const config = require("../config.json");
 
 let movementTimer = null;
+let walkTimer = null;
 
 function initialize(bot) {
 
@@ -8,28 +9,36 @@ function initialize(bot) {
 
     bot.once("spawn", () => {
 
-        start(bot);
+        stop();
+        schedule(bot);
 
     });
 
     bot.on("end", () => {
 
-        if (movementTimer) {
-            clearTimeout(movementTimer);
-            movementTimer = null;
-        }
+        stop();
 
     });
 
 }
 
-function start(bot) {
+function stop() {
 
-    schedule(bot);
+    if (movementTimer) {
+        clearTimeout(movementTimer);
+        movementTimer = null;
+    }
+
+    if (walkTimer) {
+        clearTimeout(walkTimer);
+        walkTimer = null;
+    }
 
 }
 
 function schedule(bot) {
+
+    if (!bot || !bot.entity) return;
 
     const delay = random(
         config.movement.minDelay,
@@ -46,13 +55,13 @@ function schedule(bot) {
 
 function move(bot) {
 
-    const directions = [
+    if (!bot || !bot.entity) return;
 
+    const directions = [
         "forward",
         "back",
         "left",
         "right"
-
     ];
 
     const direction = directions[
@@ -66,11 +75,12 @@ function move(bot) {
         config.movement.maxWalkTime
     );
 
-    setTimeout(() => {
+    walkTimer = setTimeout(() => {
 
-        bot.setControlState(direction, false);
-
-        schedule(bot);
+        if (bot && bot.entity) {
+            bot.setControlState(direction, false);
+            schedule(bot);
+        }
 
     }, walkTime);
 

@@ -41,7 +41,6 @@
     "minecraft-folder-path": "^1.2.0",
     "minecraft-protocol": "^1.66.2",
     "mineflayer": "^4.37.1",
-    "mineflayer-auto-auth": "^2.0.0",
     "mineflayer-pathfinder": "^2.4.5",
     "mojangson": "^2.0.4",
     "moo": "^0.5.3",
@@ -90,9 +89,9 @@
     "xxhash-wasm": "^0.4.2",
     "yggdrasil": "^1.8.0"
   },
-"scripts": {
-  "start": "node index.js"
-},
+  "scripts": {
+    "start": "node index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tutks/inverniosbot.git"

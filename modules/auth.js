@@ -3,6 +3,12 @@ const logger = require("./logger");
 
 function initialize(bot) {
 
+    let authSent = false;
+
+    bot.once("spawn", () => {
+        authSent = false;
+    });
+
     // Detectar mensajes del servidor
     bot.on("messagestr", (message) => {
 
@@ -10,15 +16,21 @@ function initialize(bot) {
 
         const msg = message.toLowerCase();
 
-        if (msg.includes("/register")) {
+        if (!authSent && msg.includes("/register")) {
+
+            authSent = true;
 
             logger.info("Detectado registro.");
 
             bot.chat(`/register ${config.account.password} ${config.account.password}`);
 
+            return;
+
         }
 
-        if (msg.includes("/login")) {
+        if (!authSent && msg.includes("/login")) {
+
+            authSent = true;
 
             logger.info("Detectado login.");
 
@@ -31,9 +43,20 @@ function initialize(bot) {
     // Debug de paquetes
     if (config.debug.packets) {
 
+        const packetsToLog = new Set([
+            "keep_alive",
+            "login",
+            "disconnect",
+            "system_chat",
+            "player_chat",
+            "game_event"
+        ]);
+
         bot._client.on("packet", (data, meta) => {
 
-            logger.debug(`[PACKET] ${meta.name}`);
+            if (packetsToLog.has(meta.name)) {
+                logger.debug(`[PACKET] ${meta.name}`);
+            }
 
         });
 

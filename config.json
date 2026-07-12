@@ -15,29 +15,22 @@
     "minDelay": 300000,
     "maxDelay": 900000,
     "messages": [
-        "q rico",
-        "me alimento a base de queque",
-        "EE gordo olor a pis",
-        "Quiero queque",
-        "Hace frio chaat",
-        "Hola a todos!",
-        "{player} tiene mucha suerte 🍀",
-        "¿Qué tal va todo, {player}?",
-        "{player} parece que está minando 😄",
-        "Llevo {time} conectado.",
-        "Hay {players} jugadores online.",
-        "estamos en el dia {day}.",
-        "Estoy en {biome}",
-        "tengo {healt} corazones"
+    "q rico",
+    "me alimento a base de queque",
+    "EE gordo olor a pis",
+    "Quiero queque",
+    "Hace frio chaat",
+    "Hola a todos!"
     ]
+
 },
 
     "movement": {
-    "enabled": true,
-    "minDelay": 20000,
+    "enabled": false,
+    "minDelay": 30000,
     "maxDelay": 60000,
-    "minWalkTime": 1000,
-    "maxWalkTime": 3000
+    "minWalkTime": 1500,
+    "maxWalkTime": 2500
 },
 
 "reconnect": {

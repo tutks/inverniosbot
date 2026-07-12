@@ -90,9 +90,9 @@
     "xxhash-wasm": "^0.4.2",
     "yggdrasil": "^1.8.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+"scripts": {
+  "start": "node index.js"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tutks/inverniosbot.git"

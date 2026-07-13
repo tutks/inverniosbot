@@ -1,4 +1,4 @@
-const mineflayer = require("mineflayer");
+wconst mineflayer = require("mineflayer");
 
 const movement = require("./movement");
 const config = require("../config.json");
@@ -56,9 +56,6 @@ function createBot() {
         version: config.server.version
 
     });
-        bot.on("error", (err) => {
-            console.log("Error:", err.message);
-        })
 
     auth.initialize(bot);
     movement.initialize(bot);

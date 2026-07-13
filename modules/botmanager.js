@@ -1,4 +1,4 @@
-wconst mineflayer = require("mineflayer");
+const mineflayer = require("mineflayer");
 
 const movement = require("./movement");
 const config = require("../config.json");

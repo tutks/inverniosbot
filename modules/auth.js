@@ -49,7 +49,8 @@ function initialize(bot) {
             "disconnect",
             "system_chat",
             "player_chat",
-            "game_event"
+            "game_event",
+            "register"
         ]);
 
         bot._client.on("packet", (data, meta) => {

@@ -28,9 +28,9 @@
     "movement": {
     "enabled": true,
     "minDelay": 25000,
-    "maxDelay": 50000,
-    "minWalkTime": 1500,
-    "maxWalkTime": 2500
+    "maxDelay": 35000,
+    "minWalkTime": 2500,
+    "maxWalkTime": 4500
 },
 
 "reconnect": {

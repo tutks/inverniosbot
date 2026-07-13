@@ -56,6 +56,9 @@ function createBot() {
         version: config.server.version
 
     });
+        bot.on("error", (err) => {
+            console.log("Error:", err.message);
+        })
 
     auth.initialize(bot);
     movement.initialize(bot);

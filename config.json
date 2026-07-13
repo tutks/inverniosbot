@@ -11,7 +11,7 @@
     },
 
     "chat": {
-    "enabled": false,
+    "enabled": true,
     "minDelay": 300000,
     "maxDelay": 900000,
     "messages": [
@@ -26,7 +26,7 @@
 },
 
     "movement": {
-    "enabled": false,
+    "enabled": true,
     "minDelay": 30000,
     "maxDelay": 60000,
     "minWalkTime": 1500,

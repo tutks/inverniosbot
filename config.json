@@ -27,8 +27,8 @@
 
     "movement": {
     "enabled": true,
-    "minDelay": 30000,
-    "maxDelay": 60000,
+    "minDelay": 25000,
+    "maxDelay": 50000,
     "minWalkTime": 1500,
     "maxWalkTime": 2500
 },
